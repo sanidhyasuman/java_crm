@@ -5,6 +5,8 @@ import java.awt.*;
 import java.awt.event.*;
 import com.toedter.calendar.JDateChooser;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class AddCustomer extends JFrame implements ActionListener {
     
@@ -16,6 +18,19 @@ public class AddCustomer extends JFrame implements ActionListener {
     JComboBox age;
     JLabel custId;
     JButton add,back;
+     public static boolean isValidEmail(String email) {
+        String regex = "^[a-zA-Z0-9_+&*-]+(?:\\." + "[a-zA-Z0-9_+&*-]+)*@" + "(?:[a-zA-Z0-9-]+\\.)+[a-z" + "A-Z]{2,7}$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
+    }
+
+    public static boolean isValidMobileNo(String str) {
+        Pattern ptrn = Pattern.compile("(0/91)?[7-9][0-9]{9}");
+        Matcher match = ptrn.matcher(str);
+        return (match.find() && match.group().equals(str));
+    }
+
     
     AddCustomer()
     {
@@ -115,12 +130,7 @@ public class AddCustomer extends JFrame implements ActionListener {
 
         back.setBackground(Color.BLACK);
         back.setForeground(Color.WHITE);
-        back.addActionListener(new ActionListener() {
-    public void actionPerformed(ActionEvent ae) {
-        setVisible(false);
-        new Home();
-        }
-    });
+        back.addActionListener(this);
         add(back);
         
         setSize(900,700);
@@ -129,7 +139,8 @@ public class AddCustomer extends JFrame implements ActionListener {
     }
     public void actionPerformed(ActionEvent ae)
     {
-        if(ae.getSource() == add){
+      if(ae.getSource()==add)
+        {
             String name = tfname.getText();
             String fname = tffname.getText();
             String dob=((JTextField) dcdob.getDateEditor().getUiComponent()).getText();
@@ -138,22 +149,27 @@ public class AddCustomer extends JFrame implements ActionListener {
             String phone= tfphone.getText();
             String address= tfaddress.getText();
             String cusId= custId.getText();
-            
-            try{
-                Conn conn=new Conn();
-                String query="insert into customer values('"+name+"','"+fname+"','"+dob+"','"+Age+"','"+mail+"','"+phone+"','"+address+"','"+cusId+"')";
-                conn.s.executeUpdate(query);
-                JOptionPane.showMessageDialog(null,"Details Added Successfully");
-                setVisible(false);
-                new Home();
-                
-            }catch(Exception e){
-                e.printStackTrace();
+            if (name.equals("") || address.equals("") || fname.equals("")) {
+                JOptionPane.showMessageDialog(null, "Please fill all details...");
+            } else if (!isValidEmail(mail)) {
+                JOptionPane.showMessageDialog(null, "Invalid Email ");
+            } else if (!isValidMobileNo(phone)) {
+                JOptionPane.showMessageDialog(null, "Invalid Phone....");
+            } else {
+                String qry ="insert into customer values('"+name+"','"+fname+"','"+dob+"','"+Age+"',"
+                        + "'"+mail+"','"+phone+"','"+address+"','"+cusId+"')";
+                try {
+                    Conn c1 = new Conn();
+                    c1.s.executeUpdate(qry);
+                    JOptionPane.showMessageDialog(null, "Customer Details Added");
+                    this.setVisible(false);
+                } catch (Exception ee) {
+                    ee.printStackTrace();
+                }
             }
         }
-        else
-        {
-           setVisible (false);
+        else {
+            setVisible (false);
            new Home();
         }
     }
