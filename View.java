@@ -59,7 +59,7 @@ public class View extends JFrame {
                 dtm.addRow(v);
             }
         } catch (SQLException | ClassNotFoundException ex) {
-            Logger.getLogger(Fview.class.getName()).log(Level.SEVERE, null, ex);
+//             Logger.getLogger(Fview.class.getName()).log(Level.SEVERE, null, ex);
         }
         
     }
