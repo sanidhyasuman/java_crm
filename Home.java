@@ -1,4 +1,4 @@
-package maincrm;
+    package maincrm;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -6,13 +6,13 @@ import javax.swing.*;
 
 
 public class Home extends JFrame implements ActionListener{
-    JButton add,view,update,remove;
+    JButton add,view,update,remove,solu, back;
     
     Home()
     {
        setLayout(null);
        
-       ImageIcon i=new ImageIcon(ClassLoader.getSystemResource("home.jpeg"));
+       ImageIcon i=new ImageIcon(ClassLoader.getSystemResource("home2.jpg"));
         Image i1=i.getImage().getScaledInstance(1120, 630, Image.SCALE_DEFAULT);
         ImageIcon i2=new ImageIcon(i1);
         JLabel img=new JLabel(i2);
@@ -20,29 +20,52 @@ public class Home extends JFrame implements ActionListener{
         add(img);
         
         JLabel heading=new JLabel("CUSTOMER REQUEST MANAGEMENT SYSTEM");
-        heading.setBounds(530,20,600,40);
+        heading.setBounds(400,20,600,40);
         heading.setFont(new Font("serif",Font.PLAIN,25));
         img.add(heading);
         
         add=new JButton("Add Customer");
-        add.setBounds(650,80,150,40 );
+        add.setBounds(100,250,140,100 );
+         add.setBackground(Color.BLACK);
+        add.setForeground(Color.WHITE);
         add.addActionListener(this);
         img.add(add);
                       
         view=new JButton("View Customer");
-        view.setBounds(820,80,150,40 );
+        view.setBounds(300,250,140,100 );
+         view.setBackground(Color.BLACK);
+        view.setForeground(Color.WHITE);
         view.addActionListener(this);
         img.add(view);
         
         update=new JButton("Update Customer");
-        update.setBounds(650,140,150,40 );
+        update.setBounds(500,250,140,100 );
+         update.setBackground(Color.BLACK);
+        update.setForeground(Color.WHITE);
         update.addActionListener(this);
         img.add(update);
         
         remove=new JButton("Remove Customer");
-        remove.setBounds(820,140,150,40 );
+        remove.setBounds(700,250,140,100 );
+         remove.setBackground(Color.BLACK);
+        remove.setForeground(Color.WHITE);
         remove.addActionListener(this);
         img.add(remove);
+        
+        solu=new JButton("Customer Complaint");
+        solu.setBounds(900,250,140,100 );
+         solu.setBackground(Color.BLACK);
+        solu.setForeground(Color.WHITE);
+        solu.addActionListener(this);
+        img.add(solu);
+        
+          back = new JButton("Back");
+        back.setBackground(Color.black);
+        back.setForeground(Color.WHITE);
+        back.setBounds(500, 500, 150, 40);
+        img.add(back);
+        back.addActionListener(this);
+
         
        setSize(1120,630);
        setLocation(250,100);
@@ -67,10 +90,17 @@ public class Home extends JFrame implements ActionListener{
        }
        else if(ae.getSource()== update)
        {
-                   
+            setVisible(false);
+           new UpdateCustomer();        
+       }
+        else if(ae.getSource()== solu)
+       {
+            setVisible(false);
+           new Solution();        
        }
            else {
-                   
+                   setVisible(false);
+           new Splash();  
                 }
        }
     
