@@ -23,7 +23,7 @@ public class View extends JFrame {
         
 //        setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-        String[] columnNames = {"Name", "father","DOB","Age","Mail","Phone","Address","Customer ID"};
+        String[] columnNames = {"Name", "Mail","Phone","Address","Customer ID"};
         model = new DefaultTableModel(columnNames, 0);
         table = new JTable(model);
 
@@ -46,9 +46,6 @@ public class View extends JFrame {
                 Vector v = new Vector();
                 for(int i = 1;i<=n;i++){
                     v.add(rs.getString("name"));
-                    v.add(rs.getString("fname"));
-                    v.add(rs.getString("dob"));
-                    v.add(rs.getString("age"));
                     v.add(rs.getString("mail"));
                     v.add(rs.getString("phone"));
                     v.add(rs.getString("address"));
@@ -59,7 +56,7 @@ public class View extends JFrame {
                 dtm.addRow(v);
             }
         } catch (SQLException | ClassNotFoundException ex) {
-//             Logger.getLogger(Fview.class.getName()).log(Level.SEVERE, null, ex);
+//            Logger.getLogger(Fview.class.getName()).log(Level.SEVERE, null, ex);
         }
         
     }
